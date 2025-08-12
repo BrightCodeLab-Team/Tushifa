@@ -3,20 +3,15 @@ import React from "react";
 const SupportingPartnersBlock = () => {
   return (
     <section className="section clients">
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-lg-7">
-            <div className="section-title text-center">
-              <h2>Partners who support us</h2>
-              <div className="divider mx-auto my-4"></div>
-              <p>
-                Our esteemed partners stand as pillars of support, collaborating
-                closely with us to deliver exceptional healthcare solutions and
-                enhance patient experiences
-              </p>
-            </div>
-          </div>
+      <div style={{ textAlign: "center", marginBottom: "40px" }}>
+        <div style={styles.headingWrapper}>
+          <span style={styles.line}></span>
+          <span style={styles.subHeading}>Our Trusted Partners</span>
+          <span style={styles.line}></span>
         </div>
+        <h2 style={styles.mainHeading}>
+          Together, we’re building better health solutions
+        </h2>
       </div>
 
       <div className="container">
@@ -75,46 +70,39 @@ const SupportingPartnersBlock = () => {
               />
             </div>
           </div>
-          {/* <div className="col-lg-2">
-            <div className="client-thumb">
-              <img
-                src="assets/images/about/3.png"
-                alt=""
-                className="img-fluid"
-              />
-            </div>
-          </div>
-          <div className="col-lg-2">
-            <div className="client-thumb">
-              <img
-                src="assets/images/about/4.png"
-                alt=""
-                className="img-fluid"
-              />
-            </div>
-          </div>
-          <div className="col-lg-2">
-            <div className="client-thumb">
-              <img
-                src="assets/images/about/5.png"
-                alt=""
-                className="img-fluid"
-              />
-            </div>
-          </div>
-          <div className="col-lg-2">
-            <div className="client-thumb">
-              <img
-                src="assets/images/about/6.png"
-                alt=""
-                className="img-fluid"
-              />
-            </div>
-          </div> */}
         </div>
       </div>
     </section>
   );
+};
+
+const styles = {
+  headingWrapper: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "15px",
+    marginBottom: "10px",
+  },
+  line: {
+    flex: "1",
+    maxWidth: "50px",
+    height: "1px",
+    backgroundColor: "#1e3a5f",
+  },
+  subHeading: {
+    color: "#223a66",
+    fontWeight: "600",
+    fontSize: "20px",
+    letterSpacing: "1px",
+    whiteSpace: "nowrap",
+  },
+  mainHeading: {
+    color: "#223a66",
+    fontSize: "32px",
+    fontWeight: "700",
+    marginTop: "10px",
+  },
 };
 
 export default SupportingPartnersBlock;

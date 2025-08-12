@@ -1,13 +1,12 @@
 import AppointmentBookingBlock from "@/components/Home/AppointmentBookingBlock";
 import HealthCareBlock from "@/components/Home/HealthCareBlock";
-import HomeFiguresBlock from "@/components/Home/HomeFiguresBlock";
 import HomeHeroicBlock from "@/components/Home/HomeHeroicBlock";
-import PatientCareBlock from "@/components/Home/PatientCareBlock";
-import PatientTestimonials from "@/components/Home/PatientTestimonials";
 import ServicesCardsBlock from "@/components/Home/ServicesCardsBlock";
 import SupportingPartnersBlock from "@/components/Home/SupportingPartnersBlock";
 import WorkingHoursSection from "@/components/Home/WorkingHoursSection";
 import WebsiteLayout from "@/components/layouts/website";
+import PurposeSection from "@/components/Home/PurposeSection";
+import PerformanceSnapshot from "@/components/Home/PerformanceSnapshot";
 
 export default function Home() {
   return (
@@ -16,12 +15,12 @@ export default function Home() {
         <HomeHeroicBlock />
         <ServicesCardsBlock />
         <WorkingHoursSection />
+        <PurposeSection />
         <HealthCareBlock />
-        <HomeFiguresBlock />
-        <PatientCareBlock />
-        <AppointmentBookingBlock />
-        <PatientTestimonials />
         <SupportingPartnersBlock />
+        <PerformanceSnapshot/>
+        <AppointmentBookingBlock />
+        
       </main>
     </WebsiteLayout>
   );

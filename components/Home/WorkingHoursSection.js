@@ -1,58 +1,103 @@
+"use client"
 import Image from "next/image";
 
 export default function WorkingHoursSection() {
+  const hours = [
+    { day: "Monday", time: "08 AM - 06 PM" },
+    { day: "Tuesday", time: "08 AM - 06 PM" },
+    { day: "Wednesday", time: "08 AM - 06 PM" },
+    { day: "Thursday", time: "08 AM - 06 PM" },
+    { day: "Friday", time: "08 AM - 12 PM" },
+    { day: "Saturday", time: "08 AM - 06 PM" },
+    { day: "Sunday", time: "08 AM - 06 PM" },
+  ];
+
   return (
-    <section className="container py-5">
+    <section className="working-hours-section container">
       <div className="row align-items-center">
-        {/* Left Side: Image */}
-        <div className="col-md-6 mb-4 mb-md-0">
-          <div className="rounded-4 overflow-hidden">
+        <div className="col-md-6">
+          <div className="doctor-image">
             <Image
-              src="/assets/images/doctor.png" // Place your image in /public folder
+              src="/assets/images/doctor.png"
               alt="Doctor"
-              className="img-fluid"
               width={600}
               height={400}
-              style={{ objectFit: "cover", borderRadius: "10px,10px,10px,100px" }}
+              className="img-fluid rounded-bottom rounded-top"
             />
           </div>
         </div>
 
-        {/* Right Side: Text + Hours */}
         <div className="col-md-6">
-          <h3 className="fw-bold text-primary mb-3">Here When You Need Us</h3>
-          <p className="text-secondary">
+          <h2 className="section-title">Here When You Need Us</h2>
+          <p className="section-description">
             We’re available throughout the week to support your health needs.
             Check our hours before planning your visit.
           </p>
 
-          <div
-            className="p-3 rounded-4 shadow-sm mt-4"
-            style={{ backgroundColor: "#fff" }}
-          >
-            <h6 className="fw-bold text-primary mb-3">Working Hours</h6>
-            <ul className="list-unstyled mb-0">
-              {[
-                { day: "Monday", time: "08 AM - 06 PM" },
-                { day: "Tuesday", time: "08 AM - 06 PM" },
-                { day: "Wednesday", time: "08 AM - 06 PM" },
-                { day: "Thursday", time: "08 AM - 06 PM" },
-                { day: "Friday", time: "08 AM - 12 PM" },
-                { day: "Saturday", time: "08 AM - 06 PM" },
-                { day: "Sunday", time: "08 AM - 06 PM" },
-              ].map((item, index) => (
-                <li
-                  key={index}
-                  className="d-flex justify-content-between  py-2"
-                >
+          <div className="hours-card">
+            <h5 className="hours-title">Working Hours</h5>
+            <ul className="hours-list">
+              {hours.map((item, index) => (
+                <li key={index} className="hours-item">
                   <span className="fw-bold">{item.day}</span>
-                  <span className="text-secondary fw-bold">{item.time}</span>
+                  <span className="fw-bold">{item.time}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
+
       </div>
+      <style jsx>{`
+        .working-hours-section {
+          padding: 50px 0;
+        }
+        .section-title {
+          font-size: 28px;
+          font-weight: 700;
+          color: #1a3760;
+          margin-bottom: 15px;
+        }
+
+        .section-description {
+          font-size: 16px;
+          color: #4a5a78;
+          margin-bottom: 25px;
+        }
+
+
+        .hours-card {
+          background: #fff;
+          border-radius: 16px;
+          padding: 20px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .hours-title {
+          font-size: 16px;
+          font-weight: 600;
+          color: #1a3760;
+          margin-bottom: 15px;
+        }
+
+        .hours-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .hours-item {
+          display: flex;
+          justify-content: space-between;
+          padding: 6px 0;
+          font-size: 15px;
+          color: #000;
+        }
+
+        .hours-item span:last-child {
+          color: #6c757d;
+        }
+      `}</style>
     </section>
   );
 }

@@ -2,102 +2,179 @@ import React from "react";
 
 const AppointmentBookingBlock = () => {
   return (
-    <section className="section appoinment">
-      <div className="container">
-        <div className="row align-items-center">
-          <div className="col-lg-6">
-            <div className="appoinment-content">
-              <img
-                src="assets/images/about/contact-us.jpg"
-                alt=""
-                className="img-fluid"
-              />
-              <div className="emergency">
-                <h2 className="text-lg">
-                  <i className="icofont-phone-circle text-lg"></i>0314 0918860
-                </h2>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-6 col-md-10">
-            <div className="appoinment-wrap mt-5 mt-lg-0">
-              <h2 className="mb-2 title-color">Contact Us</h2>
-              <p className="mb-4">
-                Connect with us today for personalized assistance and expert
-                guidance. Our team is here to address your inquiries and support
-                your needs with care and efficiency.
-              </p>
-              <form id="#" className="appoinment-form" method="post" action="#">
-                <div className="row">
-                  <div className="col-lg-6">
-                    <div className="form-group">
-                      <input
-                        name="name"
-                        id="name"
-                        type="text"
-                        className="form-control"
-                        placeholder="Full Name"
-                      />
-                    </div>
-                  </div>
+    <section style={styles.section}>
+      {/* Custom placeholder style + media queries */}
+      <style>
+        {`
+          input::placeholder,
+          textarea::placeholder {
+            color: #d0d5df;
+            opacity: 1;
+          }
+          input,
+          textarea {
+            color: #d0d5df;
+          }
 
-                  <div className="col-lg-6">
-                    <div className="form-group">
-                      <input
-                        name="phone"
-                        id="phone"
-                        type="Number"
-                        className="form-control"
-                        placeholder="Phone Number"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-6">
-                    <div className="form-group">
-                      <input
-                        name="email"
-                        id="email"
-                        type="email"
-                        className="form-control"
-                        placeholder="Full Name"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-6">
-                    <div className="form-group">
-                      <input
-                        name="address"
-                        id="address"
-                        type="text"
-                        className="form-control"
-                        placeholder="Address"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="form-group-2 mb-4">
-                  <textarea
-                    name="message"
-                    id="message"
-                    className="form-control"
-                    rows="6"
-                    placeholder="Your Message"
-                  ></textarea>
-                </div>
+          /* Tablet adjustments */
+          @media (max-width: 1024px) {
+            .contact-container {
+              flex-direction: column;
+              align-items: center;
+              gap: 30px !important;
+            }
+            .contact-image {
+              width: 80% !important;
+              height: 350px !important;
+              border-radius: 30px !important;
+            }
+            .contact-form {
+              width: 80% !important;
+            }
+            .contact-heading {
+              font-size: 40px !important;
+              text-align: center;
+            }
+            .contact-button-row {
+              flex-direction: column;
+              gap: 15px;
+              text-align: center;
+            }
+          }
 
-                <a
-                  className="btn btn-main btn-round-full"
-                  href="appoinment.html"
-                >
-                  Contact <i className="icofont-simple-right ml-2"></i>
-                </a>
-              </form>
-            </div>
+          /* Mobile adjustments */
+          @media (max-width: 600px) {
+            .contact-image {
+              width: 100% !important;
+              height: 300px !important;
+            }
+            .contact-form {
+              width: 100% !important;
+            }
+            .contact-heading {
+              font-size: 32px !important;
+            }
+            .contact-button {
+              width: 100% !important;
+            }
+            .contact-privacy {
+              max-width: 100% !important;
+            }
+          }
+        `}
+      </style>
+
+      <div style={styles.container} className="contact-container">
+        {/* Doctor Image */}
+        <div style={styles.imageContainer} className="contact-image">
+          <img
+            src="/assets/images/doctor.png"
+            alt="Doctor"
+            style={styles.image}
+          />
+        </div>
+
+        {/* Contact Form */}
+        <div style={styles.formContainer} className="contact-form">
+          <h2 style={styles.heading} className="contact-heading">Contact Us</h2>
+
+          <input type="text" placeholder="Your name" style={styles.input} />
+          <input type="email" placeholder="Email" style={styles.input} />
+          <textarea placeholder="Your message" style={styles.textarea}></textarea>
+
+          <div style={styles.buttonRow} className="contact-button-row">
+            <button style={styles.button} className="contact-button">Contact us</button>
+            <p style={styles.privacyText} className="contact-privacy">
+              By clicking the Contact us button you agree to our{" "}
+              <span style={styles.link}>Privacy Policy</span> terms
+            </p>
           </div>
         </div>
       </div>
     </section>
   );
+};
+
+const styles = {
+  section: {
+    backgroundColor: "#223A66", // Navy blue background
+    padding: "50px 0",
+    display: "flex",
+    justifyContent: "center",
+  },
+  container: {
+    display: "flex",
+    maxWidth: "1100px",
+    width: "100%",
+    alignItems: "center",
+    gap: "40px",
+    padding: "0 20px",
+  },
+  imageContainer: {
+    width: "50%",
+    height: "441px",
+    overflow: "hidden",
+    borderRadius: "50px",
+    flexShrink: 0,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+  },
+  formContainer: {
+    width: "50%",
+    display: "flex",
+    flexDirection: "column",
+    gap: "15px",
+  },
+  heading: {
+    color: "#fff",
+    fontSize: "48px",
+    marginBottom: "10px",
+    fontWeight: "bold",
+  },
+  input: {
+    padding: "12px 15px",
+    borderRadius: "20px",
+    border: "none",
+    outline: "none",
+    fontSize: "14px",
+    backgroundColor: "#43587d",
+  },
+  textarea: {
+    padding: "12px 15px",
+    borderRadius: "20px",
+    border: "none",
+    outline: "none",
+    fontSize: "14px",
+    resize: "none",
+    height: "120px",
+    backgroundColor: "#43587d",
+  },
+  buttonRow: {
+    display: "flex",
+    alignItems: "center",
+    gap: "45px",
+  },
+  button: {
+    padding: "10px 20px",
+    backgroundColor: "#fff",
+    color: "#000",
+    borderRadius: "20px",
+    border: "none",
+    cursor: "pointer",
+    fontWeight: "bold",
+  },
+  privacyText: {
+    fontSize: "12px",
+    color: "#fff",
+    maxWidth: "250px",
+  },
+  link: {
+    textDecoration: "underline",
+    cursor: "pointer",
+  },
 };
 
 export default AppointmentBookingBlock;

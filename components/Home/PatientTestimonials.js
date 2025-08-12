@@ -5,8 +5,8 @@ import Slider from "react-slick";
 
 const PatientTestimonials = () => {
   var settings = {
-    slidesToShow: 2,
-    slidesToScroll: 2,
+    slidesToShow: 1,
+    slidesToScroll: 1,
     infinite: true,
     dots: true,
     arrows: false,
@@ -46,19 +46,50 @@ const PatientTestimonials = () => {
     ],
   };
 
+  const styles = {
+    headingWrapper: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "15px",
+      marginBottom: "10px",
+    },
+    line: {
+      flex: "1",
+      maxWidth: "50px",
+      height: "1px",
+      backgroundColor: "#1e3a5f",
+    },
+    subHeading: {
+      color: "#223a66",
+      fontWeight: "600",
+      fontSize: "20px",
+      letterSpacing: "1px",
+      whiteSpace: "nowrap",
+    },
+    mainHeading: {
+      color: "#223a66",
+      fontSize: "32px",
+      fontWeight: "700",
+      marginTop: "10px",
+    },
+  };
   return (
     <section className="section testimonial-2 gray-bg">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-7">
             <div className="section-title text-center">
-              <h2>We served over 500+ Patients</h2>
-              <div className="divider mx-auto my-4"></div>
-              <p>
-                Having attended to the needs of 500+ patients, we continue to
-                uphold our promise of excellence and personalized care in every
-                interaction
-              </p>
+              <div style={{ textAlign: "center", marginBottom: "40px" }}>
+                <div style={styles.headingWrapper}>
+                  <span style={styles.line}></span>
+                  <span style={styles.subHeading}>Testimonial</span>
+                  <span style={styles.line}></span>
+                </div>
+                <h2 style={styles.mainHeading}>
+                What Client & Patient Say
+                </h2>
+              </div>
             </div>
           </div>
         </div>
@@ -74,14 +105,13 @@ const PatientTestimonials = () => {
                     className="testimonial-block style-2 gray-bg"
                     key={index}
                   >
-                    <div className="testimonial-thumb">
-                      <img src={test.img} alt="" className="img-fluid" />
-                    </div>
-
                     <div className="client-info">
+                      <div className="testimonial-thumb">
+                        <img src={test.img} alt="" className="img-fluid" />
+                      </div>
                       <h4>{test.title}</h4>
-                      <span>{test.reviewer}</span>
                       <p>{test.review}</p>
+                      <span style={{fontSize:'20px',color:'black'}}>{test.reviewer}</span>
                     </div>
                     <i className="icofont-quote-right"></i>
                   </div>

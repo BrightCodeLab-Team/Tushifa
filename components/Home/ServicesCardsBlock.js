@@ -88,7 +88,7 @@ export default function ServicesCardsBlock() {
           border-radius: 20px;
           transition: all 0.3s ease-in-out;
           height: 282px;
-          width: 343px;
+          width: 283px;
         }
         .service-card:hover {
           background: #223a66;
