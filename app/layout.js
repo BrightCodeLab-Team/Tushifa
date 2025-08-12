@@ -1,0 +1,73 @@
+import Script from "next/script";
+import "../public/assets/plugins/bootstrap/bootstrap.min.css";
+import "../public/assets/plugins/icofont/icofont.min.css";
+import "../public/assets/main/scss/style.scss";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import NextTopLoader from "nextjs-toploader";
+import AuthProvider from "@/components/AuthProvider";
+import { Toaster } from "react-hot-toast";
+// import "./globals.css";
+
+export const metadata = {
+  title: "Tushifa",
+  description: "Tushifa - Healthcare management system",
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <AuthProvider>
+      <html lang="en" style={{ scrollBehavior: "smooth" }}>
+        <head>
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/assets/images/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/assets/images/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/assets/images/favicon-16x16.png"
+          />
+          <link rel="manifest" href="/assets/images/site.webmanifest" />
+        </head>
+        <body style={{ scrollBehavior: "smooth" }}>
+          <NextTopLoader color="#FF4522" />
+          {children}
+          <Toaster
+            position="bottom-center"
+            reverseOrder={false}
+            gutter={8}
+            toastOptions={{
+              duration: 5000,
+              style: {
+                color: "white",
+                background: "#000",
+                fontSize: 14,
+              },
+            }}
+          />
+
+          {/* <!-- Main jQuery --> */}
+          <Script src="/assets/plugins/jquery/jquery.js" />
+          {/* <!-- Bootstrap 4.3.2 --> */}
+          <Script src="/assets/plugins/bootstrap/js/popper.js" />
+          <Script src="/assets/plugins/bootstrap/js/bootstrap.min.js" />
+          {/* <!-- Counterup --> */}
+          <Script src="/assets/plugins/counterup/jquery.waypoints.min.js" />
+          <Script src="/assets/plugins/counterup/jquery.counterup.min.js" />
+
+          <Script src="/assets/js/script.js" />
+          <Script src="/assets/js/contact.js" />
+        </body>
+      </html>
+    </AuthProvider>
+  );
+}
