@@ -97,7 +97,7 @@ const AppointmentBookingBlock = () => {
 
 const styles = {
   section: {
-    backgroundColor: "#223A66", // Navy blue background
+    backgroundColor: "#223A66", 
     padding: "50px 0",
     display: "flex",
     justifyContent: "center",

@@ -1,9 +1,9 @@
 .banner {
   position: relative;
   overflow: hidden;
-  background: $white;
   background: url("../../../../assets/images/bg/slider-bg-1.jpg") no-repeat;
   background-size: cover;
+  background-position: center;
   min-height: 550px;
 
   .block {
@@ -38,48 +38,58 @@
 }
 
 @include mobile {
+  .banner {
+    min-height: 450px;
+    background: url("../../../../assets/images/bg/slider-bg-1.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
   .banner .block h1 {
     font-size: 38px;
     line-height: 50px;
   }
-
-  .banner {
-    min-height: 450px;
-    background: $white !important;
-  }
 }
 
 @include mobile-xs {
+  .banner {
+    min-height: 450px;
+    background: url("../../../../assets/images/bg/slider-bg-1.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
   .banner .block h1 {
     font-size: 28px;
     line-height: 40px;
   }
-
-  .banner {
-    min-height: 450px;
-    background: $white !important;
-  }
 }
 
 @include tablet {
+  .banner {
+    background: url("../../../../assets/images/bg/slider-bg-1.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
   .banner .block h1 {
     font-size: 56px;
     line-height: 70px;
-  }
-
-  .banner {
-    background: $white !important;
   }
 }
 
 @include desktop {
   .banner {
-    background: $white !important;
+    background: url("../../../../assets/images/bg/slider-bg-1.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
   }
 }
 
 @include large-desktop {
   .banner {
-    // background: $white!important;
+    background: url("../../../../assets/images/bg/slider-bg-1.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
   }
 }

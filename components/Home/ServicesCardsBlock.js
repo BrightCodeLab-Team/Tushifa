@@ -47,7 +47,7 @@ export default function ServicesCardsBlock() {
   };
 
   return (
-    <section className=" bg-light" style={{ padding: "100px 20px" }}>
+    <section className="bg-light" style={{ padding: "100px 20px" }}>
       <div className=" text-center">
         <h6 className="text-uppercase text-[#223A66] mb-2">Our Services</h6>
         <h2 className="fw-bold mb-5 text-[#223A66]">

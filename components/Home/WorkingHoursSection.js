@@ -13,7 +13,9 @@ export default function WorkingHoursSection() {
   ];
 
   return (
-    <section className="working-hours-section container">
+    <section className="working-hours-section container"
+    
+    style={{padding:'20px 20px'}}>
       <div className="row align-items-center">
         <div className="col-md-6">
           <div className="doctor-image">

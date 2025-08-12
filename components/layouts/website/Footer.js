@@ -1,23 +1,70 @@
-import React from "react";
+"use client"
+
+import React, { useState, useEffect } from "react";
 
 export default function Footer() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Check on mount
+    checkIsMobile();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIsMobile);
+
+    // Cleanup event listener
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
+  const footerStyles = {
+    backgroundColor: "#fff",
+    padding: isMobile ? "20px" : "40px 60px 20px",
+    borderTop: "1px solid #e6e6e6",
+    fontFamily: "'Arial', sans-serif",
+  };
+
+  const gridContainerStyles = {
+    display: "grid",
+    gridTemplateColumns: isMobile ? "1fr" : "2fr 1fr 1fr 1.5fr",
+    gap: isMobile ? "30px" : "40px",
+    alignItems: "start",
+  };
+
+  const sectionHeadingStyles = {
+    fontWeight: "bold",
+    fontSize: "18px",
+    marginBottom: "20px",
+    color: "#000",
+  };
+
+  const socialIconLinkStyles = {
+    display: "inline-block",
+    width: "40px",
+    height: "40px",
+    background: "#E6EAF0",
+    borderRadius: "50%",
+    textAlign: "center",
+    lineHeight: "40px",
+    fontSize: "18px",
+    color: "#1746A2",
+  };
+
+  const copyrightStyles = {
+    borderTop: "1px solid #ccc",
+    marginTop: "30px",
+    paddingTop: "10px",
+    textAlign: "start",
+    fontSize: "14px",
+    color: "black",
+  };
+
   return (
-    <footer
-      style={{
-        backgroundColor: "#fff",
-        padding: "40px 60px 20px",
-        borderTop: "1px solid #e6e6e6",
-        fontFamily: "'Arial', sans-serif",
-      }}
-    >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "2fr 1fr 1fr 1.5fr",
-          gap: "40px",
-          alignItems: "start",
-        }}
-      >
+    <footer style={footerStyles}>
+      <div style={gridContainerStyles}>
         {/* Logo & Description */}
         <div>
           <img
@@ -31,7 +78,7 @@ export default function Footer() {
               lineHeight: "1.5",
               color: "#000",
               marginBottom: "20px",
-              maxWidth: "320px",
+              maxWidth: isMobile ? "none" : "320px",
             }}
           >
             Tushifa is a pioneering healthcare platform dedicated to
@@ -39,8 +86,6 @@ export default function Footer() {
             individuals and healthcare providers alike, ensuring optimal health
             outcomes and well-being for all
           </p>
-
-          {/* Social Icons */}
           <ul
             style={{
               listStyle: "none",
@@ -54,17 +99,7 @@ export default function Footer() {
                 href="https://www.facebook.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: "inline-block",
-                  width: "40px",
-                  height: "40px",
-                  background: "#E6EAF0",
-                  borderRadius: "50%",
-                  textAlign: "center",
-                  lineHeight: "40px",
-                  fontSize: "18px",
-                  color: "#1746A2",
-                }}
+                style={socialIconLinkStyles}
               >
                 <i className="icofont-facebook"></i>
               </a>
@@ -74,17 +109,7 @@ export default function Footer() {
                 href="https://twitter.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: "inline-block",
-                  width: "40px",
-                  height: "40px",
-                  background: "#E6EAF0",
-                  borderRadius: "50%",
-                  textAlign: "center",
-                  lineHeight: "40px",
-                  fontSize: "18px",
-                  color: "#1746A2",
-                }}
+                style={socialIconLinkStyles}
               >
                 <i className="icofont-twitter"></i>
               </a>
@@ -94,17 +119,7 @@ export default function Footer() {
                 href="https://www.pinterest.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: "inline-block",
-                  width: "40px",
-                  height: "40px",
-                  background: "#E6EAF0",
-                  borderRadius: "50%",
-                  textAlign: "center",
-                  lineHeight: "40px",
-                  fontSize: "18px",
-                  color: "#1746A2",
-                }}
+                style={socialIconLinkStyles}
               >
                 <i className="icofont-linkedin"></i>
               </a>
@@ -114,16 +129,7 @@ export default function Footer() {
 
         {/* Links */}
         <div>
-          <h4
-            style={{
-              fontWeight: "bold",
-              fontSize: "18px",
-              marginBottom: "20px",
-              color: "#000",
-            }}
-          >
-            Links
-          </h4>
+          <h4 style={sectionHeadingStyles}>Links</h4>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {["Compliance", "Report", "Our Projects", "Education", "Water"].map(
               (link) => (
@@ -144,16 +150,7 @@ export default function Footer() {
 
         {/* Support */}
         <div>
-          <h4
-            style={{
-              fontWeight: "bold",
-              fontSize: "18px",
-              marginBottom: "20px",
-              color: "#000",
-            }}
-          >
-            Support
-          </h4>
+          <h4 style={sectionHeadingStyles}>Support</h4>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {[
               "About Us",
@@ -170,24 +167,16 @@ export default function Footer() {
                   color: "black",
                 }}
               >
-                {link}
-              </li>
-            ))}
+                  {link}
+                </li>
+              )
+            )}
           </ul>
         </div>
 
         {/* Get In Touch */}
         <div>
-          <h4
-            style={{
-              fontWeight: "bold",
-              fontSize: "18px",
-              marginBottom: "20px",
-              color: "#000",
-            }}
-          >
-            Get In Touch
-          </h4>
+          <h4 style={sectionHeadingStyles}>Get In Touch</h4>
           <div style={{ marginBottom: "20px" }}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <i
@@ -220,7 +209,6 @@ export default function Footer() {
               </div>
             </div>
           </div>
-
           <div>
             <div style={{ display: "flex", alignItems: "center" }}>
               <i
@@ -248,7 +236,7 @@ export default function Footer() {
                     fontWeight: "bold",
                   }}
                 >
-                  offical@tushifa.org
+                  +1 234 567 890
                 </p>
               </div>
             </div>
@@ -257,16 +245,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Copyright */}
-      <div
-        style={{
-          borderTop: "1px solid #ccc",
-          marginTop: "30px",
-          paddingTop: "10px",
-          textAlign: "start",
-          fontSize: "22px",
-          color: "black",
-        }}
-      >
+      <div style={copyrightStyles}>
         © Copyright Tushifa. All Rights Reserved
       </div>
     </footer>
