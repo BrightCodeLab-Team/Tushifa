@@ -1,32 +1,32 @@
 "use client";
+
 import React from "react";
-import Slider from "react-slick";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function TeamExperts() {
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
+
+export default function Team() {
   const doctors = [
     {
       name: "Dr. Ayesha",
-      specialty: "Pediatric Oncologist",
-      description:
-        "Dedicated to treating childhood cancers with a compassionate, patient-first approach.",
-      image: "/assets/images/about/DrAyesh.png",
+      title: "Pediatric Oncologist",
+      desc: "Dedicated to treating childhood cancers with a compassionate, patient-first approach.",
+      img: "/assets/images/about/Doctor (1).png",
     },
     {
       name: "Dr. Ahmad Raza",
-      specialty: "Hematologist",
-      description:
-        "Expert in diagnosing and managing blood disorders such as thalassemia and leukemia.",
-      image: "/assets/images/about/DrAhmad.png",
+      title: "Hematologist",
+      desc: "Expert in diagnosing and managing blood disorders such as thalassemia and leukemia.",
+      img: "/assets/images/about/Doctor (2).png",
     },
     {
       name: "Dr. Usman Farooq",
-      specialty: "Internal Medicine Specialist",
-      description:
-        "Focused on chronic illness care and supporting long-term outpatient treatments.",
-      image: "/assets/images/about/DrUmar.png",
+      title: "Internal Medicine Specialist",
+      desc: "Focused on chronic illness care and supporting long-term outpatient treatments.",
+      img: "/assets/images/about/Doctor (3).png",
     },
   ];
 
@@ -36,9 +36,12 @@ export default function TeamExperts() {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    arrows: false,
-    appendDots: (dots) => (
-      <div>
+    responsive: [
+      { breakpoint: 1024, settings: { slidesToShow: 2 } },
+      { breakpoint: 640, settings: { slidesToShow: 1 } },
+    ],
+    appendDots: dots => (
+      <div style={{ bottom: "-30px" }}>
         <ul style={{ margin: "0px" }}>{dots}</ul>
       </div>
     ),
@@ -47,144 +50,130 @@ export default function TeamExperts() {
         style={{
           width: "10px",
           height: "10px",
-          backgroundColor: "#E0E0E0",
           borderRadius: "50%",
+          backgroundColor: "#e63946", // dot color
         }}
       ></div>
     ),
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 2 },
-      },
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 1 },
-      },
-    ],
   };
 
   return (
-    <div className="team-container">
-      <div className="header">
-        <h2>Meet Our Dedicated Team Experts</h2>
-        <p>
-          Our passionate team of medical and tech experts works together to
-          deliver ethical, efficient, and compassionate care to those who need
-          it most.
-        </p>
-        <button className="view-btn">View All Doctors</button>
+    <div style={styles.container}>
+      {/* Left-aligned heading section */}
+      <div style={styles.headerSection}>
+        <div>
+          <h2 style={styles.heading}>Meet Our Dedicated Team Experts</h2>
+        <p style={styles.subHeading}>
+  <span style={{ whiteSpace: "nowrap" }}>
+    Our passionate team of medical and tech experts works together to deliver ethical, efficient,
+  </span>
+  <br />
+  and compassionate care to those who need it most.
+</p>
+        </div>
+        <button style={styles.btn}>View All Doctors</button>
       </div>
 
-      <Slider {...settings} className="slider">
+      {/* Slider */}
+      <Slider {...settings} style={styles.slider}>
         {doctors.map((doc, index) => (
-          <div key={index} className="card">
-            <Image
-              src={doc.image}
-              alt={doc.name}
-              width={350}
-              height={400}
-              className="doctor-img"
-            />
-            <div className="card-text">
-              <h3>{doc.name}</h3>
-              <h4>{doc.specialty}</h4>
-              <p>{doc.description}</p>
+          <div key={index} style={styles.card}>
+            <div style={styles.imageWrapper}>
+              <Image
+                src={doc.img}
+                alt={doc.name}
+                width={380}
+                height={450}
+                style={{ borderRadius: "40px", objectFit: "cover" }}
+              />
+              <div style={styles.overlay}>
+                <h3 style={styles.name}>{doc.name}</h3>
+                <p style={styles.title}>{doc.title}</p>
+                <p style={styles.desc}>{doc.desc}</p>
+              </div>
             </div>
           </div>
         ))}
       </Slider>
-
-      <style jsx>{`
-        .team-container {
-          max-width: 1100px;
-          margin: auto;
-          padding: 40px 20px;
-          text-align: center;
-        }
-
-        .header {
-          position: relative;
-          margin-bottom: 30px;
-        }
-
-        h2 {
-          font-size: 28px;
-          font-weight: 700;
-          color: #1a2b49;
-        }
-
-        p {
-          max-width: 700px;
-          margin: 10px auto 20px;
-          color: #555;
-          font-size: 16px;
-        }
-
-        .view-btn {
-          position: absolute;
-          top: 0;
-          right: 0;
-          background: #e3064b;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          border-radius: 50px;
-          font-size: 14px;
-          cursor: pointer;
-        }
-
-        .slider {
-          margin-top: 20px;
-        }
-
-        .card {
-          background: white;
-          border-radius: 16px;
-          overflow: hidden;
-          text-align: left;
-          max-width: 350px;
-          margin: auto;
-          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .doctor-img {
-          border-top-left-radius: 16px;
-          border-top-right-radius: 16px;
-          object-fit: cover;
-        }
-
-        .card-text {
-          padding: 15px;
-        }
-
-        .card-text h3 {
-          font-size: 16px;
-          margin: 0;
-        }
-
-        .card-text h4 {
-          font-size: 14px;
-          color: #777;
-          margin: 5px 0;
-        }
-
-        .card-text p {
-          font-size: 14px;
-          color: #555;
-          margin-top: 10px;
-        }
-
-        :global(.slick-dots li button:before) {
-          font-size: 0px;
-        }
-
-        :global(.slick-dots li.slick-active div) {
-          background-color: #e3064b !important;
-          width: 20px;
-          border-radius: 10px;
-        }
-      `}</style>
     </div>
   );
 }
+
+const styles = {
+  container: {
+    maxWidth: "1200px",
+    margin: "auto",
+    padding: "40px 20px",
+  },
+  headerSection: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "30px",
+    flexWrap: "wrap",
+  },
+  heading: {
+    fontSize: "38px",
+    fontWeight: "700",
+    color: "#1d3557",
+    margin: "0 0 10px 0",
+  },
+  subHeading: {
+    fontSize: "18px",
+    color: "#000000",
+    maxWidth: "600px",
+    margin: "0",
+  },
+  btn: {
+    backgroundColor: "#e12454",
+    color: "#fff",
+    padding: "10px 20px",
+    borderRadius: "40px",
+    border: "none",
+    cursor: "pointer",
+    marginTop: "10px",
+  },
+  slider: {
+    padding: "20px 0",
+  },
+  card: {
+    padding: "40px",
+    textAlign: "center",
+  },
+  imageWrapper: {
+    position: "relative",
+    display: "inline-block",
+    borderRadius: "28px",
+  },
+  overlay: {
+    position: "absolute",
+    bottom: "15px", // more gap from bottom
+    left: "50%",
+    width:"320px",
+    transform: "translateX(-50%)",
+    background: "#fff",
+    padding: "14px 18px",
+    borderRadius: "20px", // bigger radius
+    boxShadow: "0 4px 15px rgba(0,0,0,0.15)",
+    maxWidth: "85%",
+    textAlign: "start",
+  },
+  name: {
+    fontSize: "16px",
+    fontWeight: "600",
+    margin: "0",
+  },
+  title: {
+    fontSize: "12px",
+    fontWeight: "400",
+    color: "#000000",
+    margin: "4px 0 6px",
+  },
+  desc: {
+    fontSize: "12px",
+    fontWeight: "400",
+    color: "#000000",
+    margin: "0",
+    lineHeight: "1.4",
+  },
+};

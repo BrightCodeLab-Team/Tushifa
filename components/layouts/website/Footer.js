@@ -21,7 +21,7 @@ export default function Footer() {
   }, []);
 
   const footerStyles = {
-    backgroundColor: "#fff",
+    backgroundColor: "#f8f8f8",
     padding: isMobile ? "20px" : "40px 60px 20px",
     borderTop: "1px solid #e6e6e6",
     fontFamily: "'Arial', sans-serif",

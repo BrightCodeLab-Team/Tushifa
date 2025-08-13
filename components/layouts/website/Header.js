@@ -70,7 +70,7 @@ const Header = () => {
                   {openMenu === "projects" && (
                     <div className="custom-dropdown">
                       <Link
-                        href="/projects/health"
+                        href="/health"
                         className="dropdown-link active"
                       >
                         Health
@@ -122,13 +122,13 @@ const Header = () => {
                         Who We Are
                       </Link>
                       <Link
-                        href="/about/mission"
+                        href="/complience"
                         className="dropdown-link"
                       >
                         Complience
                       </Link>
                       <Link
-                        href="/about/partners"
+                        href="/reports"
                         className="dropdown-link"
                       >
                         Report 
