@@ -7,6 +7,7 @@ import WorkingHoursSection from "@/components/Home/WorkingHoursSection";
 import WebsiteLayout from "@/components/layouts/website";
 import PurposeSection from "@/components/Home/PurposeSection";
 import PerformanceSnapshot from "@/components/Home/PerformanceSnapshot";
+import PatientTestimonials from "@/components/Home/PatientTestimonials";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <PurposeSection />
         <HealthCareBlock />
         <SupportingPartnersBlock />
+        <PatientTestimonials/>
         <PerformanceSnapshot/>
         <AppointmentBookingBlock />
         
