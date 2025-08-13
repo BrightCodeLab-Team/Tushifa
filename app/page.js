@@ -22,10 +22,6 @@ export default function Home() {
         <AppointmentBookingBlock />
         <PatientTestimonials />
         <SupportingPartnersBlock />
-
-
-
-        
       </main>
     </WebsiteLayout>
   );
