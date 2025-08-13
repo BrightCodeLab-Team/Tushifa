@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 export default function HealthPage() {
   return (
     <div className="container">
@@ -60,13 +58,6 @@ export default function HealthPage() {
             commitment to ongoing care and close follow-up for each patient.
           </li>
         </ul>
-         <Image
-          src="/assets/images/health/HealthRelated.png" // change to your image path
-          alt="Health"
-          width={1100}
-          height={550}
-          style={{ marginTop: "30px" }}
-        />
       </section>
 
       <style jsx>{`
