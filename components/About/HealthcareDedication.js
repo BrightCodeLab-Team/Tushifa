@@ -11,10 +11,10 @@ export default function HealthcareDedication() {
           by Purpose
         </h2>
         <p className="paragraph">
-          "Providing compassionate, patient-centered care through transparent
+          &quot;Providing compassionate, patient-centered care through transparent
           systems and innovative, tech-enabled solutions — ensuring dignity,
-          accessibility, and trust at every step of the healthcare journey."
-          Let me know if you’d like it to sound more formal, emotional, or
+          accessibility, and trust at every step of the healthcare journey.&quot;
+          Let me know if you&rsquo;d like it to sound more formal, emotional, or
           faith-aligned.
         </p>
       </div>

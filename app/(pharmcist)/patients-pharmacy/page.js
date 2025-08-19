@@ -8,20 +8,17 @@ import Loader from "@/components/common/Loader";
 import API from "@/utils/api";
 import getHeader from "@/utils/getHeader";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 const AllPatients = () => {
-  const header = getHeader();
+  
   const [patientsList, setPatientsList] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    loadPatientsData();
-  }, []);
-  const loadPatientsData = async () => {
+  const loadPatientsData = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await API.get("/patients", header);
+      const { data } = await API.get("/patients", getHeader());
       if (data?.data && Array.isArray(data.data)) {
         setPatientsList(data.data);
       } else {
@@ -32,7 +29,11 @@ const AllPatients = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadPatientsData();
+  }, [loadPatientsData]);
 
   const columns = [
     {

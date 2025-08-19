@@ -1,6 +1,7 @@
 "use client";
 import testimonials from "@/utils/testimonials";
 import React from "react";
+import Image from "next/image";
 import Slider from "react-slick";
 
 const PatientTestimonials = () => {
@@ -107,7 +108,7 @@ const PatientTestimonials = () => {
                   >
                     <div className="client-info">
                       <div className="testimonial-thumb">
-                        <img src={test.img} alt="" className="img-fluid" />
+                        <Image src={`/${test.img}`} alt="" className="img-fluid" width={80} height={80} />
                       </div>
                       <h4>{test.title}</h4>
                       <p>{test.review}</p>

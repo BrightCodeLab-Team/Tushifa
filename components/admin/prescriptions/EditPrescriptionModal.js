@@ -3,11 +3,11 @@ import FileInput from "@/components/common/FileInput";
 import TextInput from "@/components/common/TextInput";
 import API from "@/utils/api";
 import getHeader from "@/utils/getHeader";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import toast from "react-hot-toast";
 
 const EditPrescriptionModal = ({ modalId, data, callback }) => {
-  const header = getHeader();
+  
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
@@ -18,19 +18,20 @@ const EditPrescriptionModal = ({ modalId, data, callback }) => {
   });
 
   // Load patients dropdown
-  useEffect(() => {
-    const loadPatientsDropdown = async () => {
-      try {
-        const response = await API.get("/patients/dropdown", header);
-        if (Array.isArray(response?.data)) {
-          setPatients(response?.data);
-        }
-      } catch (error) {
-        console.log(error);
+  const loadPatientsDropdown = useCallback(async () => {
+    try {
+      const response = await API.get("/patients/dropdown", getHeader());
+      if (Array.isArray(response?.data)) {
+        setPatients(response?.data);
       }
-    };
-    loadPatientsDropdown();
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
+
+  useEffect(() => {
+    loadPatientsDropdown();
+  }, [loadPatientsDropdown]);
 
   useEffect(() => {
     setImage(data?.photocopy);
@@ -81,7 +82,7 @@ const EditPrescriptionModal = ({ modalId, data, callback }) => {
       const response = await API.put(
         `/prescriptions/${data?._id}`,
         formData,
-        header
+        getHeader()
       );
       if (response?.data?.success) {
         toast.success(response?.data?.message);

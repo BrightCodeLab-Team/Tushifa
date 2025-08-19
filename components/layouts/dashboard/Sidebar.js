@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import React, { useState } from "react";
 
 const Sidebar = () => {
@@ -102,10 +103,12 @@ const Sidebar = () => {
       </nav>
       <div className="sidebar-widgets">
         <div className="top-sidebar box-shadow mx-25 m-b-30 p-b-20 text-center">
-          <img
+          <Image
             src="/assets/images/appointement.svg"
             className="side-img"
             alt="img"
+            width={200}
+            height={120}
           />
         </div>
         <div className="copyright text-center">

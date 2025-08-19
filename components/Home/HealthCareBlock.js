@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 
 const HealthCareBlock = () => {
@@ -8,28 +9,13 @@ const HealthCareBlock = () => {
         <div className="row align-items-center">
           <div className="col-lg-4 col-sm-6">
             <div className="about-img">
-              <img
-                src="assets/images/about/img-1.png"
-                alt=""
-                className="img-fluid"
-                style={{width:'490px',borderRadius:'48px'}}
-              />
-              <img
-                src="assets/images/about/img-3.png"
-                alt=""
-                className="img-fluid mt-4"
-                style={{width:'490px', borderRadius:'48px'}}
-              />
+              <Image src="/assets/images/about/img-1.png" alt="" className="img-fluid" width={490} height={320} style={{borderRadius:'48px'}} />
+              <Image src="/assets/images/about/img-3.png" alt="" className="img-fluid mt-4" width={490} height={320} style={{borderRadius:'48px'}} />
             </div>
           </div>
           <div className="col-lg-4 col-sm-6">
             <div className="about-img mt-4 mt-lg-0">
-              <img
-                src="assets/images/about/img-2.png"
-                alt=""
-                className="img-fluid"
-                style={{borderRadius:'48px'}}
-              />
+              <Image src="/assets/images/about/img-2.png" alt="" className="img-fluid" width={490} height={680} style={{borderRadius:'48px'}} />
             </div>
           </div>
           <div className="col-lg-4">

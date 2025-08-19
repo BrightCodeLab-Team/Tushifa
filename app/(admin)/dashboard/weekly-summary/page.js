@@ -9,7 +9,7 @@ import DeleteConfirmationModal from "@/components/common/DeleteConfirmationModal
 import Loader from "@/components/common/Loader";
 import API from "@/utils/api";
 import getHeader from "@/utils/getHeader";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 
 const WeeklySummary = () => {
   const header = getHeader();
@@ -22,15 +22,7 @@ const WeeklySummary = () => {
   const [selectedDay, setSelectedDay] = useState("");
   const [selectedType, setSelectedType] = useState("new_patient");
 
-  useEffect(() => {
-    loadStatisticsData();
-  }, []);
-
-  useEffect(() => {
-    loadPatientsData();
-  }, [selectedDay, selectedType]); // Reload when the day or type changes
-
-  const loadStatisticsData = async () => {
+  const loadStatisticsData = useCallback(async () => {
     try {
       setLoading(true);
       const { data } = await API.get(
@@ -46,9 +38,13 @@ const WeeklySummary = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [header]);
 
-  const loadPatientsData = async () => {
+  useEffect(() => {
+    loadStatisticsData();
+  }, [loadStatisticsData]);
+
+  const loadPatientsData = useCallback(async () => {
     try {
       setLoading(true);
       const { data } = await API.get(
@@ -63,7 +59,11 @@ const WeeklySummary = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [header, selectedDay, selectedType]);
+
+  useEffect(() => {
+    loadPatientsData();
+  }, [loadPatientsData]);
 
   const columns = [
     {

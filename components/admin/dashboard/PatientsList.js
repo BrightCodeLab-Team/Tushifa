@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const PatientsList = () => {
   return (
@@ -32,11 +33,13 @@ const PatientsList = () => {
                   <tbody>
                     <tr>
                       <td>
-                        <img
+                        <Image
                           className="rounded-circle"
-                          width="35"
+                          width={35}
+                          height={35}
                           src="https://via.placeholder.com/35/f8f8f8/2b2b2b"
                           alt=""
+                          unoptimized
                         />
                       </td>
                       <td>Airi</td>
@@ -67,11 +70,13 @@ const PatientsList = () => {
                     </tr>
                     <tr>
                       <td>
-                        <img
+                        <Image
                           className="rounded-circle"
-                          width="35"
+                          width={35}
+                          height={35}
                           src="https://via.placeholder.com/35/f8f8f8/2b2b2b"
                           alt=""
+                          unoptimized
                         />
                       </td>
                       <td>Angelica</td>
@@ -102,11 +107,13 @@ const PatientsList = () => {
                     </tr>
                     <tr>
                       <td>
-                        <img
+                        <Image
                           className="rounded-circle"
-                          width="35"
+                          width={35}
+                          height={35}
                           src="https://via.placeholder.com/35/f8f8f8/2b2b2b"
                           alt=""
+                          unoptimized
                         />
                       </td>
                       <td>Ashton</td>
@@ -137,11 +144,13 @@ const PatientsList = () => {
                     </tr>
                     <tr>
                       <td>
-                        <img
+                        <Image
                           className="rounded-circle"
-                          width="35"
+                          width={35}
+                          height={35}
                           src="https://via.placeholder.com/35/f8f8f8/2b2b2b"
                           alt=""
+                          unoptimized
                         />
                       </td>
                       <td>Bradley</td>
@@ -172,11 +181,13 @@ const PatientsList = () => {
                     </tr>
                     <tr>
                       <td>
-                        <img
+                        <Image
                           className="rounded-circle"
-                          width="35"
+                          width={35}
+                          height={35}
                           src="https://via.placeholder.com/35/f8f8f8/2b2b2b"
                           alt=""
+                          unoptimized
                         />
                       </td>
                       <td>Brenden</td>
@@ -207,11 +218,13 @@ const PatientsList = () => {
                     </tr>
                     <tr>
                       <td>
-                        <img
+                        <Image
                           className="rounded-circle"
-                          width="35"
+                          width={35}
+                          height={35}
                           src="https://via.placeholder.com/35/f8f8f8/2b2b2b"
                           alt=""
+                          unoptimized
                         />
                       </td>
                       <td>Brielle</td>

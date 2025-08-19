@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: "d1f59xuafeit1ham.public.blob.vercel-storage.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+      },
     ],
     minimumCacheTTL: 1500000,
   },

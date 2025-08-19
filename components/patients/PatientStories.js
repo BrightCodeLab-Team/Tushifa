@@ -1,261 +1,145 @@
 "use client";
-import React from "react";
-import dynamic from "next/dynamic";
-import Link from "next/link"; // Import the Link component
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import useSWR from "swr";
+import Link from "next/link";
+import Image from "next/image";
+import Slider from "react-slick";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import API from "@/utils/api";
 
-const Slider = dynamic(() => import("react-slick"), {
-  ssr: false,
-});
+const fetcher = (url) => API.get(url).then((r) => r.data?.data || []);
 
-const PatientStories = () => {
-  const stories = [
-    {
-      id: 1,
-      name: "Ilyas",
-      diagnosis: "Thalassemia",
-      location: "Peshawar, Pakistan",
-      quote: "Tushifa gave me hope when I had none.",
-      image: "/assets/images/patient.png",
-    },
-    {
-      id: 2,
-      name: "Abubakkar",
-      age: "10-year-old",
-      diagnosis: "Thalassemia",
-      location: "Peshawar, Pakistan",
-      quote: "Tushifa gave me hope when I had none.",
-      image: "/assets/images/patient.png",
-    },
-    {
-      id: 3,
-      name: "Patient Name",
-      diagnosis: "Thalassemia",
-      location: "Peshawar, Pakistan",
-      quote: "Tushifa gave me hope when I had none.",
-      image: "/assets/images/patient.png",
-    },
-    {
-      id: 4,
-      name: "Patient Name",
-      diagnosis: "Thalassemia",
-      location: "Peshawar, Pakistan",
-      quote: "Tushifa gave me hope when I had none.",
-      image: "/assets/images/patient.png",
-    },
-    {
-      id: 5,
-      name: "Ilyas",
-      diagnosis: "Thalassemia",
-      location: "Peshawar, Pakistan",
-      quote: "Tushifa gave me hope when I had none.",
-      image: "/assets/images/patient.png",
-    },
-    {
-      id: 6,
-      name: "Abubakkar",
-      age: "10-year-old",
-      diagnosis: "Thalassemia",
-      location: "Peshawar, Pakistan",
-      quote: "Tushifa gave me hope when I had none.",
-      image: "/assets/images/patient.png",
-    },
-    {
-      id: 7,
-      name: "Patient Name",
-      diagnosis: "Thalassemia",
-      location: "Peshawar, Pakistan",
-      quote: "Tushifa gave me hope when I had none.",
-      image: "/assets/images/patient.png",
-    },
-    {
-      id: 8,
-      name: "Patient Name",
-      diagnosis: "Thalassemia",
-      location: "Peshawar, Pakistan",
-      quote: "Tushifa gave me hope when I had none.",
-      image: "/assets/images/patient.png",
-    },
-    {
-      id: 9,
-      name: "Ilyas",
-      diagnosis: "Thalassemia",
-      location: "Peshawar, Pakistan",
-      quote: "Tushifa gave me hope when I had none.",
-      image: "/assets/images/patient.png",
-    },
-    {
-      id: 10,
-      name: "Abubakkar",
-      age: "10-year-old",
-      diagnosis: "Thalassemia",
-      location: "Peshawar, Pakistan",
-      quote: "Tushifa gave me hope when I had none.",
-      image: "/assets/images/patient.png",
-    },
-    {
-      id: 11,
-      name: "Patient Name",
-      diagnosis: "Thalassemia",
-      location: "Peshawar, Pakistan",
-      quote: "Tushifa gave me hope when I had none.",
-      image: "/assets/images/patient.png",
-    },
-    {
-      id: 12,
-      name: "Patient Name",
-      diagnosis: "Thalassemia",
-      location: "Peshawar, Pakistan",
-      quote: "Tushifa gave me hope when I had none.",
-      image: "/assets/images/patient.png",
-    },
-  ];
+export default function PatientStories() {
+  const { data: stories = [], isLoading } = useSWR("/patient-stories", fetcher);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    rows: 2,
-    slidesPerRow: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          rows: 2,
-          slidesPerRow: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          rows: 2,
-          slidesPerRow: 1,
-        },
-      },
-    ],
-  };
+  if (isLoading)
+    return <section style={{ padding: "2rem" }}>Loading...</section>;
 
   return (
-    <section
-      style={{
-        padding: "2rem",
-        paddingTop: "2rem",
-        backgroundColor: "#f9f9f9",
-      }}
-    >
+    <section style={{ padding: "2rem", backgroundColor: "#f9f9f9" }}>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           marginBottom: "2rem",
+          marginLeft: "30px",
         }}
       >
         <div>
-          <h2>Patient's Stories</h2>
+          <h2>Patient&apos;s Stories</h2>
           <p>
             Real voices from those whose lives were touched by your support.
           </p>
         </div>
-        <button
-          style={{
-            backgroundColor: "#e91e63",
-            color: "white",
-            border: "none",
-            padding: "0.75rem 1.5rem",
-            cursor: "pointer",
-            borderRadius: "5px",
-          }}
-        >
-          View All Doctors
-        </button>
       </div>
-      <div style={{ margin: "0 -10px" }}>
-        <Slider {...settings}>
-          {stories.map((story) => (
-            <div key={story.id} style={{ padding: "0 10px" }}>
-              <div
+
+      {(() => {
+        const useSlider = stories.length > 6;
+
+        const Card = ({ story }) => (
+          <div
+            key={story._id}
+            style={{
+              width: 380,
+              height: 500,
+              backgroundColor: "white",
+              borderRadius: "24px",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              marginLeft: "30px",
+            }}
+          >
+            <div style={{ height: 260 }}>
+              <Image
+                src={story.image || "/assets/images/patient.png"}
+                alt={story.name}
+                width={800}
+                height={600}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            </div>
+            <div style={{ padding: "1rem", height: 180, overflow: "hidden" }}>
+              <h3 style={{ margin: 0, marginBottom: ".5rem" }}>{story.name}</h3>
+              {story.story && (
+                <p style={{ margin: "0 0 .5rem 0" }}>{story.story}</p>
+              )}
+              {story.diagnosis && (
+                <p style={{ margin: "0 0 .5rem 0" }}>{story.diagnosis}</p>
+              )}
+              {story.location && (
+                <p style={{ margin: 0, display: "flex", alignItems: "center" }}>
+                  <FontAwesomeIcon icon={faLocationDot} style={{ marginRight: 8 }} />
+                  {story.location}
+                </p>
+              )}
+            </div>
+            <div style={{ padding: "1rem", textAlign: "start" }}>
+              <Link
+                href={`/stories/${story._id}`}
                 style={{
+                  color: "#e91e63",
+                  textDecoration: "none",
+                  fontWeight: "bold",
+                  border: "1px solid #e91e63",
+                  borderRadius: "30px",
+                  padding: "10px 20px",
                   backgroundColor: "white",
-                  borderRadius: "48px",
-                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "100%",
-                  marginBottom: "20px",
-                  marginLeft: "20px ",
+                  display: "inline-block",
                 }}
               >
-                <div style={{ height: "296px" }}>
-                  <img
-                    src={story.image}
-                    alt={story.name}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-                <div style={{ padding: "1rem" }}>
-                  <h3 style={{ margin: "0 0 0.5rem 0" }}>
-                    {story.name}{" "}
-                    {story.age && (
-                      <span style={{ fontWeight: "normal" }}>{story.age}</span>
-                    )}
-                  </h3>
-                  <p style={{ margin: "0 0 0.5rem 0" }}>{story.quote}</p>
-                  <p style={{ margin: "0 0 0.5rem 0" }}>{story.diagnosis}</p>
-                  <p
-                    style={{
-                      margin: "0 0 0.5rem 0",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      style={{ marginRight: "8px" }}
-                    />
-                    {story.location}
-                  </p>
-                </div>
-                <div style={{ padding: "1rem", textAlign: "start" }}>
-                  <Link
-                    href={`/stories/${story.id}`}
-                    style={{
-                      color: "#e91e63",
-                      textDecoration: "none",
-                      fontWeight: "bold",
-                      border: "1px solid #e91e63",
-                      borderRadius: "30px",
-                      padding: "10px 20px",
-                      backgroundColor: "white",
-                      display: "inline-block",
-                    }}
-                  >
-                    Read Full Story
-                  </Link>
-                </div>
-              </div>
+                Read Full Story
+              </Link>
             </div>
-          ))}
-        </Slider>
-      </div>
+          </div>
+        );
+
+        if (!useSlider) {
+          return (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 300px)",
+                gap: "20px",
+                justifyContent: "center",
+              }}
+            >
+              {stories.map((p) => (
+                <Card key={p._id} story={p} />
+              ))}
+            </div>
+          );
+        }
+
+        const settings = {
+          infinite: false,
+          rows: 2,
+          slidesPerRow: 3,
+          slidesToShow: 1,
+          slidesToScroll: 1 ,
+          arrows: false,
+          dots: true,
+          adaptiveHeight: true,
+          responsive: [
+            { breakpoint: 1024, settings: { rows: 3, slidesPerRow: 2, slidesToShow: 1 } },
+            { breakpoint: 768, settings: { rows: 3, slidesPerRow: 1, slidesToShow: 1 } },
+          ],
+        };
+
+        return (
+          <div style={{ margin: "0 -10px" }}>
+            <Slider {...settings}>
+              {stories.map((p) => (
+                <div key={p._id} style={{ padding: 10, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <Card story={p} />
+                </div>
+              ))}
+            </Slider>
+          </div>
+        );
+      })()}
     </section>
   );
-};
-
-export default PatientStories;
+}

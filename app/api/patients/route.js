@@ -9,11 +9,13 @@ const generatePatientCode = () => {
   return Math.floor(10000 + Math.random() * 90000).toString();
 };
 
-// Create a patient
+// Create a new patient
 export const POST = async (req) => {
   try {
     const data = await req.formData();
-    console.log("FormData From Backend: ", req.formData());
+    console.log("FormData From Backend:", Object.fromEntries(data.entries()));
+
+    // Extract fields from formData
     const patient_code = generatePatientCode();
     const name = data.get("name");
     const age = data.get("age");
@@ -36,84 +38,87 @@ export const POST = async (req) => {
     const symptoms_time = data.get("symptoms_time");
     const attending_physician_name = data.get("attending_physician_name");
     const attendantName = data.get("attendantName");
-    const attendant_relation_to_patient = data.get(
-      "attendant_relation_to_patient"
-    );
+    const attendant_relation_to_patient = data.get("attendant_relation_to_patient");
     const date = data.get("date");
 
+    // Handle CNIC photocopy upload
     let cnicPhotocopy;
-    if (photocopy) {
-      cnicPhotocopy = await saveImage(photocopy);
-      cnicPhotocopy = await put(photocopy?.name, photocopy, {
+    if (photocopy && typeof photocopy === "object") {
+      // save locally if needed
+      await saveImage(photocopy);
+
+      // save on Vercel Blob
+      const uploaded = await put(photocopy.name, photocopy, {
         access: "public",
       });
+      cnicPhotocopy = uploaded.url;
     }
 
     await startDbConnection();
 
     const patient = await PatientModel.create({
-      patient_code: patient_code,
-      name: name,
-      age: age,
-      gender: gender,
-      contact: contact,
-      address: address,
-      note: note,
-      patient_condition: patient_condition,
-      patient_status: patient_status,
-      father_status: father_status,
-      father_profession: father_profession,
-      father_name: father_name,
-      father_cnic_number: father_cnic_number,
-      income: income,
-      eligibility: eligibility,
-      interview_conducted_by: interview_conducted_by,
-      narrative: narrative,
-      symptoms_time: symptoms_time,
+      patient_code,
+      name,
+      age,
+      gender,
+      contact,
+      address,
+      note,
+      patient_condition,
+      patient_status,
+      father_status,
+      father_profession,
+      father_name,
+      father_cnic_number,
+      income,
+      eligibility,
+      interview_conducted_by,
+      narrative,
+      symptoms_time,
       cnic: {
-        cnic_number: cnic_number,
-        photocopy: cnicPhotocopy?.url,
+        cnic_number,
+        photocopy: cnicPhotocopy,
       },
-      attending_physician_name: attending_physician_name,
+      attending_physician_name,
       attendant_details: {
         name: attendantName,
         relation_to_patient: attendant_relation_to_patient,
       },
-      date: date,
+      date,
     });
 
     return NextResponse.json(
       {
         success: true,
         message: `Patient ${patient.name} added successfully!`,
-        patient: patient,
+        patient,
       },
-      { status: 200 }
+      { status: 201 }
     );
   } catch (error) {
-    console.log(error);
+    console.error("Error creating patient:", error);
     return NextResponse.json(
-      { success: false, message: error?.message, error: error },
+      { success: false, message: error.message || "Server Error", error },
       { status: 500 }
     );
   }
 };
 
 // Get all patients
-export const GET = async (req) => {
+export const GET = async () => {
   try {
     await startDbConnection();
 
-    const patients = await PatientModel.find().sort({ date: -1 });
+    const patients = await PatientModel.find().sort({ createdAt: -1 });
 
     return NextResponse.json({
       success: true,
       data: patients,
     });
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching patients:", error);
     return NextResponse.json(
-      { success: false, message: error?._message, error: error },
+      { success: false, message: error.message || "Server Error", error },
       { status: 500 }
     );
   }

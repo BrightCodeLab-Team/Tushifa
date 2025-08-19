@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 export default function HealthImages() {
   const certificates = [
@@ -17,7 +18,7 @@ export default function HealthImages() {
       <div className="row">
         {certificates.slice(0, 4).map((cert, index) => (
           <div key={index} className="cardsss">
-            <img src={cert.src} alt={cert.alt} />
+            <Image src={cert.src} alt={cert.alt} width={310} height={290} />
           </div>
         ))}
       </div>
@@ -26,7 +27,7 @@ export default function HealthImages() {
       <div className="row center">
         {certificates.slice(4).map((cert, index) => (
           <div key={index} className="cardsss">
-            <img src={cert.src} alt={cert.alt} />
+            <Image src={cert.src} alt={cert.alt} width={310} height={290} />
           </div>
         ))}
       </div>

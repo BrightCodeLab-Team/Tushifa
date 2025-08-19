@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function Footer() {
   const [isMobile, setIsMobile] = useState(false);
@@ -67,10 +68,12 @@ export default function Footer() {
       <div style={gridContainerStyles}>
         {/* Logo & Description */}
         <div>
-          <img
+          <Image
             src="/assets/images/logo.png"
             alt="Tushifa Logo"
-            style={{ width: "60px", height: "auto", marginBottom: "10px" }}
+            width={60}
+            height={60}
+            style={{ height: "auto", marginBottom: "10px" }}
           />
           <p
             style={{

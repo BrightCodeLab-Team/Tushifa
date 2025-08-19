@@ -6,7 +6,7 @@ import API from "@/utils/api";
 import getHeader from "@/utils/getHeader";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import dynamic from "next/dynamic";
 
@@ -17,27 +17,24 @@ const DataTableBase = dynamic(() => import("@/components/common/DataTable"), {
 const AllPrescription = () => {
   const session = useSession();
   const user = session?.data?.user;
-  const header = getHeader();
+  
   const [prescriptions, setPrescriptions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState({});
   const [pharmacyId, setPharmacyId] = useState("");
 
   useEffect(() => {
-    const getPharmacyId = user?.pharmacyId;
-    setPharmacyId(getPharmacyId);
-    loadPrescriptionsData();
-    console.log("user", user);
-  }, [session, pharmacyId]);
+    setPharmacyId(user?.pharmacyId || "");
+  }, [user]);
 
   console.log("pharmacy_id in useState ", pharmacyId);
 
-  const loadPrescriptionsData = async () => {
+  const loadPrescriptionsData = useCallback(async () => {
     try {
       setLoading(true);
       const { data } = await API.get(
         `/prescriptions/approved?pharmacy_id=${pharmacyId}`,
-        header
+        getHeader()
       );
       if (Array.isArray(data.prescriptions)) {
         setPrescriptions(data.prescriptions);
@@ -48,7 +45,13 @@ const AllPrescription = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [pharmacyId]);
+
+  useEffect(() => {
+    if (pharmacyId) {
+      loadPrescriptionsData();
+    }
+  }, [pharmacyId, loadPrescriptionsData]);
 
   const handlePrint = async (data) => {
     console.log("Print data => ", data);

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const AppointmentBookingBlock = () => {
   return (
@@ -67,9 +68,11 @@ const AppointmentBookingBlock = () => {
       <div style={styles.container} className="contact-container">
         {/* Doctor Image */}
         <div style={styles.imageContainer} className="contact-image">
-          <img
+          <Image
             src="/assets/images/doctor.png"
             alt="Doctor"
+            width={550}
+            height={441}
             style={styles.image}
           />
         </div>

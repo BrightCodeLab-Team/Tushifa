@@ -1,14 +1,17 @@
 "use client";
 import WebsiteLayout from "@/components/layouts/website";
+import Image from "next/image";
 
 export default function ReportHeader() {
   return (
     <WebsiteLayout>
       <div style={styles.hero}>
-        <img
-          src="/assets/images/health/Doctorheader.png" // change to your image path
+        <Image
+          src="/assets/images/health/Doctorheader.png"
           alt="Doctor checkup"
           style={styles.image}
+          width={1920}
+          height={320}
         />
         <div style={styles.overlay}>
           <h1 style={styles.heading}>Will Start Soon</h1>

@@ -1,6 +1,5 @@
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
-import { baseUrl } from "./api";
 
 async function saveImage(file) {
   try {
@@ -19,10 +18,9 @@ async function saveImage(file) {
     await mkdir(uploadsDirectory, { recursive: true });
     await writeFile(filePath, buffer);
 
-    if (!baseUrl) {
-      throw new Error("Base URL is not defined.");
-    }
-    const imageUrl = `${baseUrl}/tmp/${fileName}`;
+    // Return a relative URL pointing to the tmp folder; upstream callers
+    // should prefer the blob URL if available.
+    const imageUrl = `/tmp/${fileName}`;
     console.log("File saved successfully. URL:", imageUrl);
 
     return imageUrl;

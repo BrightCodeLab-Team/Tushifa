@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import startDbConnection from "@/libs/db";
 import PatientModel from "@/models/patientModel";
 import { NextResponse } from "next/server";

@@ -7,14 +7,14 @@ import API from "@/utils/api";
 import getHeader from "@/utils/getHeader";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 const DataTableBase = dynamic(() => import("@/components/common/DataTable"), {
   ssr: false,
 });
 
 const Dashboard = () => {
-  const header = getHeader();
+  
   const [patientsList, setPatientsList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState({});
@@ -25,20 +25,17 @@ const Dashboard = () => {
   console.log("session user ", user);
 
   useEffect(() => {
-    loadStatisticsData();
-    loadPatientsData();
-    const getPharmacyId = user?.pharmacyId;
-    setPharmacyId(getPharmacyId);
-  }, [user, pharmacyId]);
+    setPharmacyId(user?.pharmacyId || "");
+  }, [user]);
 
   console.log("pharmacy_id in useState ", pharmacyId);
 
-  const loadStatisticsData = async () => {
+  const loadStatisticsData = useCallback(async () => {
     try {
       setLoading(true);
       const { data } = await API.get(
         `/pharmacies/${pharmacyId}/statistics`,
-        header
+        getHeader()
       );
       if (data?.statistics) {
         setStatistics(data?.statistics);
@@ -48,13 +45,13 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
-  const loadPatientsData = async () => {
+  }, [pharmacyId]);
+  const loadPatientsData = useCallback(async () => {
     try {
       setLoading(true);
       const { data } = await API.get(
         `/prescriptions/approved?pharmacy_id=${pharmacyId}`,
-        header
+        getHeader()
       );
       if (Array.isArray(data.prescriptions)) {
         setPatientsList(data.prescriptions);
@@ -64,7 +61,14 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [pharmacyId]);
+
+  useEffect(() => {
+    if (pharmacyId) {
+      loadStatisticsData();
+      loadPatientsData();
+    }
+  }, [pharmacyId, loadStatisticsData, loadPatientsData]);
 
   const columns = [
     {

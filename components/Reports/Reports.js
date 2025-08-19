@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 export default function Reports() {
   const certificates = [
@@ -13,7 +14,7 @@ export default function Reports() {
       <div className="row" style={{ justifyContent: "center" , gap: "50px"}}>
         {certificates.map((cert, index) => (
           <div key={index} className="cardsss">
-            <img src={cert.src} alt={cert.alt} />
+            <Image src={cert.src} alt={cert.alt} width={550} height={600} />
             <p className="caption">{cert.title}</p>
           </div>
         ))}

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const LifelineSection = () => {
   return (
@@ -15,34 +16,28 @@ const LifelineSection = () => {
       overflow: 'hidden'
     }}>
       {/* Background images for the top-left and bottom-right corners */}
-      <img
-        src="/assets/images/LifelineSection1.png" // Replace with the actual path to your image
+      <Image
+        src="/assets/images/LifelineSection1.png"
         alt="Decorative element"
+        width={200}
+        height={200}
         style={{
           position: 'absolute',
           top: '0',
           left: '0',
-          width: '200px',
-          height: 'auto',
           zIndex: 1,
-          '@media (max-width: 768px)': {
-            display: 'none'
-          }
         }}
       />
-      <img
-        src="/assets/images/LifelineSection2.png" // Replace with the actual path to your image
+      <Image
+        src="/assets/images/LifelineSection2.png"
         alt="Decorative element"
+        width={200}
+        height={200}
         style={{
           position: 'absolute',
           bottom: '0',
           right: '0',
-          width: '200px',
-          height: 'auto',
           zIndex: 1,
-          '@media (max-width: 768px)': {
-            display: 'none'
-          }
         }}
       />
       
@@ -55,7 +50,7 @@ const LifelineSection = () => {
           marginBottom: '1rem',
           lineHeight: '1.2'
         }}>
-          You Can Be Someone's<br />Lifeline Today
+          You Can Be Someone&apos;s<br />Lifeline Today
         </h2>
         <p style={{
           fontSize: '1.25rem',

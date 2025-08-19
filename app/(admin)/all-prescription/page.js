@@ -6,7 +6,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import toast from "react-hot-toast";
 import getHeader from "@/utils/getHeader";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 const DataTableBase = dynamic(() => import("@/components/common/DataTable"), {
   ssr: false,
@@ -30,19 +30,16 @@ const Loader = dynamic(() => import("@/components/common/Loader"), {
 });
 
 const AllPrescription = () => {
-  const header = getHeader();
+  
   const [prescriptions, setPrescriptions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [selected, setSelected] = useState({});
 
-  useEffect(() => {
-    loadPrescriptionsData();
-  }, []);
-  const loadPrescriptionsData = async () => {
+  const loadPrescriptionsData = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await API.get("/prescriptions", header);
+      const { data } = await API.get("/prescriptions", getHeader());
       if (Array.isArray(data.data)) {
         setPrescriptions(data.data);
       }
@@ -51,14 +48,18 @@ const AllPrescription = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadPrescriptionsData();
+  }, [loadPrescriptionsData]);
 
   const handleDelete = async () => {
     try {
       setDeleting(true);
       const { data } = await API.delete(
         `/prescriptions/${selected._id}`,
-        header
+        getHeader()
       );
       if (data?.success) {
         toast.success(data?.message);

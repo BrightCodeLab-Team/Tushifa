@@ -2,6 +2,7 @@
 
 import getBase64 from "@/utils/getBase64";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
 const FileInput = ({ label, onChange, file }) => {
   const [preview, setPreview] = useState("");
@@ -34,14 +35,15 @@ const FileInput = ({ label, onChange, file }) => {
         />
         {preview && (
           <div className="preview" style={{ zIndex: 99 }}>
-            <img
+            <Image
               id="file-ip-1-preview"
               src={preview}
               alt="img"
+              width={200}
+              height={160}
               style={{
                 display: preview ? "block" : "none",
                 objectFit: "cover",
-                height: 160,
               }}
             />
           </div>

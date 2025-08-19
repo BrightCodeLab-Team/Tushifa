@@ -28,7 +28,7 @@ export const POST = async (req) => {
     });
   } catch (error) {
     return NextResponse.json(
-      { success: false, message: error?._message, error: error },
+      { success: false, error: error?.message || "Registration failed" },
       { status: 500 }
     );
   }

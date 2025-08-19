@@ -2,11 +2,11 @@ import ButtonLoader from "@/components/common/ButtonLoader";
 import TextInput from "@/components/common/TextInput";
 import API from "@/utils/api";
 import getHeader from "@/utils/getHeader";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import toast from "react-hot-toast";
 
 const EditTransactionModal = ({ modalId, data, callback }) => {
-  const header = getHeader();
+  
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(false);
   const [payload, setPayload] = useState({
@@ -17,20 +17,21 @@ const EditTransactionModal = ({ modalId, data, callback }) => {
   });
 
   // Load patients dropdown
-  useEffect(() => {
-    const loadPatientsDropdown = async () => {
-      try {
-        const resposne = await API.get("/patients/dropdown", header);
-        if (Array.isArray(resposne?.data)) {
-          setPatients(resposne?.data);
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
+  const loadPatientsDropdown = useCallback(async () => {
+    try {
+      const resposne = await API.get("/patients/dropdown", getHeader());
+      if (Array.isArray(resposne?.data)) {
+        setPatients(resposne?.data);
       }
-    };
-    loadPatientsDropdown();
+    } catch (error) {
+      console.log(error);
+    } finally {
+    }
   }, []);
+
+  useEffect(() => {
+    loadPatientsDropdown();
+  }, [loadPatientsDropdown]);
 
   useEffect(() => {
     setPayload((prev) => {

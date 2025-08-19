@@ -24,7 +24,7 @@ const NewPrescription = () => {
   useEffect(() => {
     const loadPatientsDropdown = async () => {
       try {
-        const { data } = await API.get("/patients/dropdown", header);
+        const { data } = await API.get("/patients/dropdown", getHeader());
         if (Array.isArray(data)) {
           setPatients(data);
           console.log("Patient Data: ", data);

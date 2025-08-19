@@ -3,6 +3,7 @@
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 const AccountDropdown = ({ link }) => {
   const { data, status } = useSession();
@@ -16,7 +17,7 @@ const AccountDropdown = ({ link }) => {
               <span>{user?.name}</span>
               <small>{user?.role} </small>
             </div>
-            <img src="https://via.placeholder.com/150/f8f8f8/2b2b2b" alt="people" />
+            <Image src="https://via.placeholder.com/150/f8f8f8/2b2b2b" alt="people" width={40} height={40} unoptimized />
           </Link>
           <div className="account-dropdown-form dropdown-container">
             <div className="form-content">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 import AccountDropdown from "./AccountDropdown";
 
@@ -9,7 +10,7 @@ const DashboardHeader = () => {
       <div className="nav-header">
         <div className="brand-logo">
           <Link href="/dashboard">
-            <img className="brand-title" src="/assets/images/logo-tagline.png" alt="" />
+            <Image className="brand-title" src="/assets/images/logo-tagline.png" alt="" width={160} height={40} />
           </Link>
         </div>
       </div>

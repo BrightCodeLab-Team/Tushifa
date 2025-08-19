@@ -12,19 +12,19 @@ const Loader = dynamic(() => import("@/components/common/Loader"), {
 import API from "@/utils/api";
 import getHeader from "@/utils/getHeader";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ViewPrescriptionsModal from "@/components/pharmcist/prescriptions/ViewPrescription";
 
 const AllPrescription = () => {
-  const header = getHeader();
+  
   const [prescriptions, setPrescriptions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState({});
 
-  const loadPrescriptionsData = async () => {
+  const loadPrescriptionsData = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await API.get("/prescriptions/non-approved", header);
+      const { data } = await API.get("/prescriptions/non-approved", getHeader());
       if (Array.isArray(data.data)) {
         setPrescriptions(data.data);
       }
@@ -33,11 +33,11 @@ const AllPrescription = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadPrescriptionsData();
-  }, []);
+  }, [loadPrescriptionsData]);
 
   const columns = [
     {

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import React, { useState } from "react";
 
 const PharmcistSidebar = () => {
@@ -71,7 +72,7 @@ const PharmcistSidebar = () => {
       </nav>
       <div className="sidebar-widgets">
         <div className="top-sidebar box-shadow mx-25 m-b-30 p-b-20 text-center">
-          <img src="/assets/images/appointement.svg" className="side-img" alt="img" />
+          <Image src="/assets/images/appointement.svg" className="side-img" alt="img" width={200} height={120} />
         </div>
         <div className="copyright text-center">
           <p className="mb-0">Tushifa © 2023</p>

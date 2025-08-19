@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const ViewPatientModal = ({ modalId, data }) => {
   return (
@@ -16,11 +17,13 @@ const ViewPatientModal = ({ modalId, data }) => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="myModalLabel">
-              <img
+              <Image
                 className="rounded-circle"
-                width="35"
+                width={35}
+                height={35}
                 src="https://via.placeholder.com/150/f8f8f8/2b2b2b"
                 alt=""
+                unoptimized
               />
               {data?.name}
             </h5>

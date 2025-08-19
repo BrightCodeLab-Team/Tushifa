@@ -5,12 +5,12 @@ import TextInput from "@/components/common/TextInput";
 import API from "@/utils/api";
 import getHeader from "@/utils/getHeader";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import toast from "react-hot-toast";
 
 const TransactionForm = () => {
   const router = useRouter();
-  const header = getHeader();
+  
 
   const [loading, setLoading] = useState(false);
   const [patients, setPatients] = useState([]);
@@ -22,19 +22,20 @@ const TransactionForm = () => {
   });
 
   // Load patients dropdown
-  useEffect(() => {
-    const loadPatientsDropdown = async () => {
-      try {
-        const { data } = await API.get("/patients/dropdown", header);
-        if (Array.isArray(data)) {
-          setPatients(data);
-        }
-      } catch (error) {
-        console.log(error);
+  const loadPatientsDropdown = useCallback(async () => {
+    try {
+      const { data } = await API.get("/patients/dropdown", getHeader());
+      if (Array.isArray(data)) {
+        setPatients(data);
       }
-    };
-    loadPatientsDropdown();
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
+
+  useEffect(() => {
+    loadPatientsDropdown();
+  }, [loadPatientsDropdown]);
 
   const handleChange = (event) => {
     setPayload((prev) => {

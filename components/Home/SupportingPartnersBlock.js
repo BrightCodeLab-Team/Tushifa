@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const SupportingPartnersBlock = () => {
   return (
@@ -18,56 +19,32 @@ const SupportingPartnersBlock = () => {
         <div className="row clients-logo">
           <div className="col-lg-2">
             <div className="client-thumb">
-              <img
-                src="assets/images/about/1.png"
-                alt=""
-                className="img-fluid"
-              />
+              <Image src="/assets/images/about/1.png" alt="" className="img-fluid" width={120} height={60} />
             </div>
           </div>
           <div className="col-lg-2">
             <div className="client-thumb">
-              <img
-                src="assets/images/about/2.png"
-                alt=""
-                className="img-fluid"
-              />
+              <Image src="/assets/images/about/2.png" alt="" className="img-fluid" width={120} height={60} />
             </div>
           </div>
           <div className="col-lg-2">
             <div className="client-thumb">
-              <img
-                src="assets/images/about/3.png"
-                alt=""
-                className="img-fluid"
-              />
+              <Image src="/assets/images/about/3.png" alt="" className="img-fluid" width={120} height={60} />
             </div>
           </div>
           <div className="col-lg-2">
             <div className="client-thumb">
-              <img
-                src="assets/images/about/4.png"
-                alt=""
-                className="img-fluid"
-              />
+              <Image src="/assets/images/about/4.png" alt="" className="img-fluid" width={120} height={60} />
             </div>
           </div>
           <div className="col-lg-2">
             <div className="client-thumb">
-              <img
-                src="assets/images/about/5.png"
-                alt=""
-                className="img-fluid"
-              />
+              <Image src="/assets/images/about/5.png" alt="" className="img-fluid" width={120} height={60} />
             </div>
           </div>
           <div className="col-lg-2">
             <div className="client-thumb">
-              <img
-                src="assets/images/about/6.png"
-                alt=""
-                className="img-fluid"
-              />
+              <Image src="/assets/images/about/6.png" alt="" className="img-fluid" width={120} height={60} />
             </div>
           </div>
         </div>

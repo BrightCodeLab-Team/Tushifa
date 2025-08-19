@@ -6,25 +6,19 @@ import customStyles from "@/components/common/DataTableStyle";
 import Loader from "@/components/common/Loader";
 import API from "@/utils/api";
 import getHeader from "@/utils/getHeader";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import DataTable from "react-data-table-component";
 
 const Dashboard = () => {
-  const header = getHeader();
   const [patientsList, setPatientsList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState({});
   const [statistics, setStatistics] = useState({});
 
-  useEffect(() => {
-    loadStatisticsData();
-    loadPatientsData();
-  }, []);
-
-  const loadStatisticsData = async () => {
+  const loadStatisticsData = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await API.get(`/admin-statistics`, header);
+      const { data } = await API.get(`/admin-statistics`, getHeader());
       if (data?.statistics) {
         setStatistics(data?.statistics);
       }
@@ -33,13 +27,13 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
-  const loadPatientsData = async () => {
+  }, []);
+  const loadPatientsData = useCallback(async () => {
     try {
       setLoading(true);
       const { data } = await API.get(
         `/patients/getPatientsByCount?count=5`,
-        header
+        getHeader()
       );
       if (Array.isArray(data.data)) {
         setPatientsList(data.data);
@@ -49,7 +43,12 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadStatisticsData();
+    loadPatientsData();
+  }, [loadStatisticsData, loadPatientsData]);
 
   const columns = [
     {

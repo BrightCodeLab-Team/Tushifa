@@ -5,14 +5,14 @@ import Loader from "@/components/common/Loader";
 import DeleteConfirmationModal from "@/components/common/DeleteConfirmationModal";
 import API from "@/utils/api";
 import getHeader from "@/utils/getHeader";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import EditPatientModal from "@/components/admin/patients/EditPatientModal";
 import ViewPatientModal from "@/components/admin/patients/ViewPatientModal";
 
 const AllPatients = () => {
-  const header = getHeader();
+  
   const [patientsList, setPatientsList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -23,13 +23,10 @@ const AllPatients = () => {
     setPatientStatus(event.target.value);
   };
 
-  useEffect(() => {
-    loadPatientsData();
-  }, []);
-  const loadPatientsData = async () => {
+  const loadPatientsData = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await API.get("/patients", header);
+      const { data } = await API.get("/patients", getHeader());
       if (Array.isArray(data.data)) {
         setPatientsList(data.data);
         GetFormatedData(data?.data);
@@ -39,12 +36,16 @@ const AllPatients = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadPatientsData();
+  }, [loadPatientsData]);
 
   const handleDelete = async () => {
     try {
       setDeleting(true);
-      const { data } = await API.delete(`/patients/${selected._id}`, header);
+      const { data } = await API.delete(`/patients/${selected._id}`, getHeader());
       if (data?.success) {
         toast.success(data?.message);
         setSelected({});

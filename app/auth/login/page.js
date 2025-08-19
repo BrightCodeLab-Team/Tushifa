@@ -3,6 +3,7 @@
 import InputField from "@/components/form/InputField";
 import PasswordField from "@/components/form/PasswordField";
 import Link from "next/link";
+import Image from "next/image";
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -59,7 +60,7 @@ const Login = () => {
         if (data?.user?.role == "admin") {
           router.replace("/dashboard");
         } else {
-          router.replace("/dashboard-pharmacy");
+          router.replace("/");
         }
       }
     } catch (error) {
@@ -74,13 +75,7 @@ const Login = () => {
         <div className="login-tabib">
           <div>
             <div className="text-center">
-              <Link className="logo" href="/">
-                <img
-                  className="img-fluid"
-                  src="/assets/images/logo.png"
-                  alt="login page"
-                />
-              </Link>
+                <Image className="img-fluid" src="/assets/images/logo.png" alt="login page" width={200} height={60} />
             </div>
             <div className="login-main">
               <form className="theme-form" onSubmit={handleSubmit}>
@@ -107,9 +102,9 @@ const Login = () => {
                   <div className="checkbox p-0">
                     <input id="checkbox1" type="checkbox" />
                   </div>
-                  <Link className="link text-primary" href="#">
-                    Forgot password?
-                  </Link>
+                  <Link className="link text-primary" href="/auth/forgot-password">
+  Forgot password?
+</Link>
                   <div className="mt-3">
                     <button
                       className="btn btn-primary w-100"
@@ -130,12 +125,12 @@ const Login = () => {
                     </button>
                   </div>
                 </div>
-                {/* <p className="mt-4 mb-0">
+                <p className="mt-4 mb-0">
                   {"Don't"} have account?{" "}
                   <Link className="ms-2 text-primary text-center" href="/auth/register">
                     Create Account
                   </Link>
-                </p> */}
+                </p>
               </form>
             </div>
           </div>

@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import AuthActionButtons from "@/components/common/AuthActionButtons";
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(null);
@@ -21,10 +23,11 @@ const Header = () => {
               href="/"
               className="navbar-brand d-flex align-items-center text-decoration-none"
             >
-              <img
+              <Image
                 src="/assets/images/logo.png"
                 alt="Taroeq-U-Shifa"
-                style={{ width: "48px" }}
+                width={48}
+                height={48}
               />
             </Link>
 
@@ -145,13 +148,7 @@ const Header = () => {
                 </Link>
               </div>
 
-              <Link
-                href="/auth/login"
-                className="btn text-white fw-medium px-4 py-2 rounded-pill"
-                style={{ backgroundColor: "#e91e63" }}
-              >
-                Login
-              </Link>
+              <AuthActionButtons />
             </div>
           </div>
         </nav>

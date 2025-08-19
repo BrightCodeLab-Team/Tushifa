@@ -1,11 +1,14 @@
 "use client";
+import Image from "next/image";
 
 export default function HealBeyondMedicine() {
   return (
     <div style={styles.hero}>
-      <img
-        src="/assets/images/health/Doctorheader.png" // change to your image path
+      <Image
+        src="/assets/images/health/Doctorheader.png"
         alt="Doctor checkup"
+        width={1920}
+        height={320}
         style={styles.image}
       />
       <div style={styles.overlay}>

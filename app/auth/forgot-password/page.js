@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 
 const ForgotPassword = () => {
@@ -8,9 +9,7 @@ const ForgotPassword = () => {
         <div className="login-tabib">
           <div>
             <div className="text-center">
-              <Link className="logo" href="/">
-                <img className="img-fluid" src="/assets/images/logo.png" alt="login page" />
-              </Link>
+                <Image className="img-fluid" src="/assets/images/logo.png" alt="login page" width={200} height={60} />
             </div>
             <div className="login-main">
               <form className="theme-form">

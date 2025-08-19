@@ -12,25 +12,21 @@ import Loader from "@/components/common/Loader";
 import API from "@/utils/api";
 import getHeader from "@/utils/getHeader";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import toast from "react-hot-toast";
 
 const AllPharmacies = () => {
-  const header = getHeader();
+  
   const [pharmaciesList, setPharmaciesList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [selected, setSelected] = useState({});
 
-  useEffect(() => {
-    loadPharmaciesData();
-  }, []);
-
   // Load pharmacies record
-  const loadPharmaciesData = async () => {
+  const loadPharmaciesData = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await API.get("/pharmacies", header);
+      const { data } = await API.get("/pharmacies", getHeader());
       if (Array.isArray(data.data)) {
         setPharmaciesList(data.data);
       }
@@ -39,13 +35,17 @@ const AllPharmacies = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadPharmaciesData();
+  }, [loadPharmaciesData]);
 
   // Delete handler
   const handleDelete = async () => {
     try {
       setDeleting(true);
-      const { data } = await API.delete(`/pharmacies/${selected._id}`, header);
+      const { data } = await API.delete(`/pharmacies/${selected._id}`, getHeader());
       if (data?.success) {
         toast.success(data?.message);
         setSelected({});
