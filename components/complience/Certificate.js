@@ -15,7 +15,7 @@ export default function Certificate() {
       <div className="row" style={{ justifyContent: "center" , gap: "50px"}}>
         {certificates.map((cert, index) => (
           <div key={index} className="cardsss">
-            <Image src={cert.src} alt={cert.alt} width={550} height={600} />
+            <Image src={cert.src} alt={cert.alt} width={420} height={500} />
             <p className="caption">Certificates</p>
           </div>
         ))}
@@ -50,8 +50,8 @@ export default function Certificate() {
         }
 
         .cardsss img {
-          width: 550px; /* half of container width if 2 images per row */
-          height: 600px;
+          width: 250px; /* half of container width if 2 images per row */
+          height: 400px;
           object-fit: cover;
           border-radius: 40px; /* remove round edges between images */
         }

@@ -26,8 +26,8 @@ const Header = () => {
               <Image
                 src="/assets/images/logo.png"
                 alt="Taroeq-U-Shifa"
-                width={48}
-                height={48}
+                width={50}
+                height={68}
               />
             </Link>
 
