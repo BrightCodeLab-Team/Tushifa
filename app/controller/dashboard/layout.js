@@ -1,5 +1,5 @@
 import "../../../public/assets/main/css/fonts.css";
-import DashboardFooter from "@/components/layouts/dashboard/DashboardFooter";
+
 import { getServerSession } from "next-auth";
 import Script from "next/script";
 import { authOptions } from "../../api/auth/[...nextauth]/route";
